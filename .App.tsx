@@ -1,6 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { useAuth0, Auth0Provider } from 'react-native-auth0';
+
+const Profile = () => {
+  const {user, error} = useAuth0();
+
+  return (
+      <>
+          {user && <Text>Logged in as {user.name}</Text>}
+          {!user && <Text>Not logged in</Text>}
+          {error && <Text>{error.message}</Text>}
+      </>
+  )
+}
+
 const LoginButton = () => {
   const { authorize } = useAuth0();
 
@@ -35,7 +48,7 @@ export default function App() {
       {/* your application */}
       <View style={styles.container}>
         <LoginButton />
-        <Text>Open up App.tsx to start working on your app! test</Text>
+        <Profile />
         <LogoutButton />
         <StatusBar style="auto" />
       </View>
