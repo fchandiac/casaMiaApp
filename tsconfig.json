@@ -1,6 +1,13 @@
+// {
+//   "extends": "expo/tsconfig.base",
+//   "compilerOptions": {
+//     "strict": true
+//   }
+// }
+
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "jsx": "react-native",                      // Especifica que el código JSX es para React Native
+    "strict": false
   }
 }

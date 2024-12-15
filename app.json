@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "casaMiaApp",
+    "slug": "casa-mia-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,9 +12,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.casamia.app"
     },
     "android": {
+      "package": "com.casamia.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -23,5 +25,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-  }
+  },
+  "plugins": [
+    [
+      "react-native-auth0",
+      {
+        "domain": "dev-rk0fl88jinxofajt.us.auth0.com"
+      }
+    ]
+  ]
 }
