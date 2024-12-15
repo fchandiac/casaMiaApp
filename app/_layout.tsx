@@ -6,7 +6,6 @@ export default function _Layout() {
   return (
     <>
     <View>
-        <Text>Logged in as </Text>
         <Slot />
     </View>
     </>
