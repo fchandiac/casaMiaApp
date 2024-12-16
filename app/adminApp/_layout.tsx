@@ -22,14 +22,10 @@ export default function _Layout() {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    paddingHorizontal:20,
+    paddingTop:10,
+
 
   },
-  content: {
-    color: 'white',
-    fontSize: 24,
-    textAlign: 'center',
-    padding: 20,
-    position: 'absolute',
-    bottom: 300,
-  },
+
 });

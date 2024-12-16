@@ -1,21 +1,26 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Text, Pressable } from 'react-native';
 const logo = require('../assets/logo.png');
-import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-
-
+import { useAuth0 } from 'react-native-auth0';
+import { useRouter } from 'expo-router';
 
 
 export default function Index() {
+  const { user, authorize  } = useAuth0();
   const router = useRouter();
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   router.push('/adminApp');
-    // }, 4000);
-  }, []);
-  
+    if (!user) {
+      authorize();
+    } else {
+      console.log('user', user);
+      router.push('/adminApp');
+
+    }
+  }, [user]);
+
+
   return (
     <View
       style={{
@@ -35,7 +40,7 @@ export default function Index() {
           }}
         />
       </View>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
     </View>
   );
 }
