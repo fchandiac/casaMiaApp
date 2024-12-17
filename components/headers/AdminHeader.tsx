@@ -2,21 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 const logo = require('../../assets/logo.png');
 
+
 interface AdminHeaderProps {
   userName: string;
-  accountId: string;
+  email: string;
 }
 
 export default function AdminHeader({
   userName = 'TestUserAdmin',
-  accountId = '123456',
+  email = 'maio@mail.com',
 }: AdminHeaderProps) {
   return (
     <View style={styles.header}>
       <Image source={logo} style={styles.logo} />
       <View style={styles.infoContainer}>
         <Text style={styles.userName}>{userName}</Text>
-        <Text style={styles.accountId}>ID: {accountId}</Text>
+        <Text style={styles.accountId}>{email}</Text>
       </View>
     </View>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Slot } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
 import { Auth0Provider } from 'react-native-auth0';
+import { GlobalProvider } from '../globalContext';
 
 
 function LayoutWrapper() {
@@ -20,7 +21,9 @@ export default function _Layout() {
             domain="dev-rk0fl88jinxofajt.us.auth0.com"
             clientId="FylS8wC7JHGPyfeCYaSeXhEp5q1HRzaI"
         >
-            <LayoutWrapper />
+            <GlobalProvider>
+                <LayoutWrapper />
+            </GlobalProvider>
         </Auth0Provider>
     );
 }

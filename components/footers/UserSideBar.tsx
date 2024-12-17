@@ -19,7 +19,7 @@ interface UserSideBar {
     name?: string;
 }
 
-export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
+export default function UserSideBar({ isOpen, toggleSidebar }: SidebarProps) {
     const router = useRouter();
     const [userData, setUserData] = useState<UserSideBar>({ picture: defaultImage, email: '', name: '' });
     const { clearSession, user } = useAuth0();
@@ -73,25 +73,40 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
                         source={{ uri: userData.picture }}
                         style={styles.profileImage}
                     />
-                    <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Admin</Text>
                     <Text style={{ color: 'white', fontSize: 16 }}>{userData.name}</Text>
                     <Text style={{ color: 'white', fontSize: 16 }}>{userData.email}</Text>
 
 
                 </View>
-                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp')}>
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/userApp')}>
                     <Ionicons name="home" size={24} color="white" />
                     <Text style={styles.menuItem}>Home</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/products')}>
-                    <Ionicons name="cube" size={24} color="white" />
-                    <Text style={styles.menuItem}>Productos</Text>
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/userApp/missions')}>
+                    <Ionicons name="rocket" size={24} color="white" />
+                    <Text style={styles.menuItem}>mis Misiones</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/products')}>
+                    <Ionicons name="pricetags-sharp" size={24} color="white" />
+                    <Text style={styles.menuItem}>mis Descuentos</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/products')}>
+                    <Ionicons name="cart" size={24} color="white" />
+                    <Text style={styles.menuItem}>Carrito</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/products')}>
+                <Ionicons name="trophy" size={24} color="white" />
+                    <Text style={styles.menuItem}>Liga CasaMia</Text>
+                </TouchableOpacity>
+
 
                 <TouchableOpacity style={styles.menuButton} onPress={() => logout()}>
                     <Ionicons name="log-out" size={24} color="white" />
-                    <Text style={styles.menuItem}>Cerrar Sesión</Text>
+                    <Text style={styles.menuItem}>Cerrar sesión</Text>
                 </TouchableOpacity>
             </View>
         </Animated.View>
