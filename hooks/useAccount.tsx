@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-const backendUrl = "http://localhost:3001/";
+const backendUrl = "http://192.168.0.110:3001/";
 
 interface BasicUserAccount {
     name: string;
@@ -11,11 +11,28 @@ const basicUserAccountDefault: BasicUserAccount = {
     email: "mail",
 };
 
+interface UserAccount {
+    userName: string;
+    email: string;
+    points: number;
+    money: number;
+    name: string;
+    gender: number;
+}
+
 
 
 
 export default function useAccount() {
-    const [userAccount, setUserAccount] = useState<BasicUserAccount>(basicUserAccountDefault);
+    const [userAccount, setUserAccount] = useState<UserAccount>({
+        userName: "",
+        name: "",
+        email: "",
+        points: 0,
+        money: 0,
+        gender: 0,
+    });
+    const [error, setError] = useState<string | null>(null);
 
     const findAccountByEmail = async (email: string) => {
         try {
@@ -36,6 +53,7 @@ export default function useAccount() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email }),
+                cache: "no-cache",
             });
             const data = await response.json();
             setUserAccount(data);
@@ -45,8 +63,39 @@ export default function useAccount() {
         }
     }
 
+    //isProfileComplete(email: string)
+    async function isProfileComplete(email: string) {
+        try {
+            const response = await fetch(`${backendUrl}account/isProfileComplete?email=${email}`);
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //updateUserName(email: string, userName: string)
+    async function updateUserName(email: string, userName: string) {
+        try {
+            const response = await fetch(`${backendUrl}account/updateUserName`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, userName }),
+            });
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
+
     
 
-    return {userAccount, findAccountByEmail, createAccount};
+    return {userAccount, findAccountByEmail, createAccount, isProfileComplete, updateUserName};
 }
 

@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Text, Pressable } from 'react-native';
-const logo = require('../assets/logo.png');
-import { StatusBar } from 'expo-status-bar';
-import { useAuth0 } from 'react-native-auth0';
-import { useRouter } from 'expo-router';
-import { useGlobalContext } from '../globalContext';
+import React, { useEffect } from "react";
+import { View, Image, StyleSheet, Text, Pressable } from "react-native";
+const logo = require("../assets/logo.png");
+import { StatusBar } from "expo-status-bar";
+import { useAuth0 } from "react-native-auth0";
+import { useRouter } from "expo-router";
+import { useGlobalContext } from "../globalContext";
 
 export default function Index() {
   const { authorize, user } = useAuth0();
   const { account } = useGlobalContext();
   const { findAccountByEmail, createAccount } = account;
   const router = useRouter();
-
 
   useEffect(() => {
     // Verifica si el usuario está autenticado
@@ -38,7 +37,7 @@ export default function Index() {
         }
       };
 
-      fetchUserAccount();
+      fetchUserAccount(); 
     }
   }, [user]);
 
@@ -55,28 +54,28 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%', // Tamaño completo de la pantalla
-    justifyContent: 'center', // Centra los elementos verticalmente
-    alignItems: 'center', // Centra los elementos horizontalmente
-    backgroundColor: '#1D1D1D',
+    height: "100%", // Tamaño completo de la pantalla
+    justifyContent: "center", // Centra los elementos verticalmente
+    alignItems: "center", // Centra los elementos horizontalmente
+    backgroundColor: "#1D1D1D",
   },
   logo: {
     height: 200,
     width: 200,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginBottom: 20, // Espaciado entre el logo y el botón
   },
   button: {
     width: 200, // Tamaño fijo para el botón
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: "#fff",
     borderRadius: 25,
     paddingVertical: 10, // Ajuste de altura del botón
-    alignItems: 'center', // Centra el texto horizontalmente dentro del botón
+    alignItems: "center", // Centra el texto horizontalmente dentro del botón
   },
   buttonText: {
     fontSize: 16,
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

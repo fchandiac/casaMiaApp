@@ -58,8 +58,6 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
                     justifyContent: 'center',
                     marginBottom: 20,
                     marginTop: 20,
-
-
                 }}>
                     <Image
                         source={logo}
@@ -87,6 +85,11 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
                 <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/products')}>
                     <Ionicons name="cube" size={24} color="white" />
                     <Text style={styles.menuItem}>Productos</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.menuButton} onPress={() => handleNavigation('/adminApp/validate')}>
+                    <Ionicons name="cube" size={24} color="white" />
+                    <Text style={styles.menuItem}>Validar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.menuButton} onPress={() => logout()}>

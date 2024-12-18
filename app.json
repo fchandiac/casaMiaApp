@@ -14,10 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.casamia.app"
+      "bundleIdentifier": "com.test.casamia.app"
     },
     "android": {
-      "package": "com.casamia.app",
+      "package": "com.test.casamia.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -32,6 +32,14 @@
       "react-native-auth0",
       {
         "domain": "dev-rk0fl88jinxofajt.us.auth0.com"
+      }
+    ],
+    [
+      "expo-camera",
+      {
+        "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+        "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+        "recordAudioAndroid": true
       }
     ]
   ]
