@@ -20,7 +20,7 @@ export default function AdminFooter() {
             <Pressable onPress={toggleSidebar}>
                 <Ionicons name='menu' size={30} color='white' style={styles.icon} />
             </Pressable>
-            <Pressable onPress={() => console.log('Home pressed')}>
+            <Pressable onPress={() => router.push('/adminApp')}>
                 <Ionicons name="home" size={24} color="white" style={styles.icon} />
             </Pressable>
             <Pressable onPress={() => router.back()}>
