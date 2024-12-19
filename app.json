@@ -17,11 +17,7 @@
       "bundleIdentifier": "com.test.casamia.app"
     },
     "android": {
-      "package": "com.test.casamia.app",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "com.test.casamia.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

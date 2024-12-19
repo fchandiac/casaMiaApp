@@ -2,7 +2,8 @@ import React, { createContext, ReactNode, useContext } from "react";
 import useAccount from "./hooks/useAccount";
 import useCategories from "./hooks/useCategories";
 import useProducts from "./hooks/useProducts";
-import usePushNotifications from "./hooks/usePushNotifications";
+import useMission from "./hooks/useMission";
+
 
 
 // Tipo del contexto
@@ -10,7 +11,8 @@ type GlobalContextType = {
   account: ReturnType<typeof useAccount>;
   categories: ReturnType<typeof useCategories>;
   products: ReturnType<typeof useProducts>;
-  pushNotifications: ReturnType<typeof usePushNotifications>;
+  mission: ReturnType<typeof useMission>;
+
 
 };
 
@@ -27,10 +29,11 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const account = useAccount();
   const categories = useCategories();
   const products = useProducts();
-  const pushNotifications = usePushNotifications();
+  const mission = useMission();
+
 
   return (
-    <GlobalContext.Provider value={{ account, categories, products, pushNotifications }}>
+    <GlobalContext.Provider value={{ account, categories, products, mission }}>
       {children}
     </GlobalContext.Provider>
   );

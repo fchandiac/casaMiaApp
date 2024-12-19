@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Text, Pressable } from "react-native";
 const logo = require("../assets/logo.png");
 import { StatusBar } from "expo-status-bar";
@@ -8,9 +8,11 @@ import { useGlobalContext } from "../globalContext";
 
 export default function Index() {
   const { authorize, user } = useAuth0();
-  const { account } = useGlobalContext();
+  const { account, mission } = useGlobalContext();
   const { findAccountByEmail, createAccount } = account;
+  const { getUserMissions } = mission;
   const router = useRouter();
+
 
   useEffect(() => {
     // Verifica si el usuario está autenticado
@@ -40,6 +42,8 @@ export default function Index() {
       fetchUserAccount(); 
     }
   }, [user]);
+
+
 
   return (
     <View style={styles.container}>

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { useAuth0 } from "react-native-auth0";
 const defaultImage = require("../../assets/default-image.png");
@@ -99,42 +100,47 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               {userData.email}
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp")}
-          >
-            <Ionicons name="home" size={24} color="white" />
-            <Text style={styles.menuItem}>Home</Text>
-          </TouchableOpacity>
+          <ScrollView>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp")}
+            >
+              <Ionicons name="home" size={24} color="white" />
+              <Text style={styles.menuItem}>Home</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/missions")}
-          >
-            <Ionicons name="rocket" size={24} color="white" />
-            <Text style={styles.menuItem}>Misiones</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/missions")}
+            >
+              <Ionicons name="rocket" size={24} color="white" />
+              <Text style={styles.menuItem}>Misiones</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/products")}
-          >
-            <Ionicons name="cube" size={24} color="white" />
-            <Text style={styles.menuItem}>Productos</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/products")}
+            >
+              <Ionicons name="cube" size={24} color="white" />
+              <Text style={styles.menuItem}>Productos</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/validate")}
-          >
-            <Ionicons name="cube" size={24} color="white" />
-            <Text style={styles.menuItem}>Validar</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/validate")}
+            >
+              <Ionicons name="cube" size={24} color="white" />
+              <Text style={styles.menuItem}>Validar</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuButton} onPress={() => logout()}>
-            <Ionicons name="log-out" size={24} color="white" />
-            <Text style={styles.menuItem}>Cerrar Sesión</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => logout()}
+            >
+              <Ionicons name="log-out" size={24} color="white" />
+              <Text style={styles.menuItem}>Cerrar Sesión</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </Pressable>
     </Animated.View>

@@ -1,0 +1,82 @@
+# Redirección de HTTP a HTTPS para miparral.app y mesas.app
+server {
+    listen 80;
+    server_name miparral.app www.miparral.app mesas.app www.mesas.app;  # Incluye ambos dominios
+    return 301 https://$host$request_uri;  # Redirigir a HTTPS
+}
+
+# Configuración para miparral.app y www.miparral.app
+server {
+    listen 443 ssl;
+    server_name miparral.app www.miparral.app;
+
+    ssl_certificate /home/rdpuser/apps/certs/miparral/fullchain.crt;  # Ruta al archivo combinado
+    ssl_certificate_key /home/rdpuser/apps/certs/miparral/private.key; # Ruta a tu clave privada
+
+    location / {
+        proxy_pass http://localhost:9000;  # Redirigir al backend del dominio principal
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /auth {
+        rewrite ^/auth/(.*) /$1 break;
+        proxy_pass http://localhost:9001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /back {
+        rewrite ^/back/(.*) /$1 break;
+        proxy_pass http://localhost:9003;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /img {
+        rewrite ^/img/(.*) /$1 break;
+        proxy_pass http://localhost:9002;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# Configuración para mesas.app y www.mesas.app
+server {
+    listen 443 ssl;
+    server_name mesas.app www.mesas.app;
+
+    ssl_certificate /home/rdpuser/apps/certs/mesas/fullchain.crt;  # Ruta al archivo combinado para mesas.app
+    ssl_certificate_key /home/rdpuser/apps/certs/mesas/private.key; # Ruta a tu clave privada para mesas.app
+
+    location / {
+        proxy_pass http://localhost:3001;  # Redirigir al backend de mesas.app
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_cache_bypass $http_upgrade;
+    }
+}

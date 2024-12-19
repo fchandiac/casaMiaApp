@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { useGlobalContext } from "../../globalContext";
 import { CameraView } from "expo-camera"; // Importar CameraView desde expo-camera
+import Title from "../../components/commons/Title";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function validate() {
   const [facing, setFacing] = useState("back");
@@ -21,11 +29,22 @@ export default function validate() {
   };
 
   const handleValidate = () => {
+    console.log("Validando misión:", qrCode);
     setScanned(false);
   };
 
   return (
     <View>
+      <Title title="Validar misión" />
+      <Pressable
+      style={{
+        alignItems: 'flex-end',
+        marginBottom: 10,
+      }
+      }
+      >
+        <Ionicons name="refresh-circle" size={35} color="black" />
+      </Pressable>
       <View style={styles.cameraContainer}>
         <CameraView
           style={styles.camera}
@@ -36,9 +55,9 @@ export default function validate() {
         />
       </View>
       <View style={styles.controlsContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+        <Pressable style={styles.button} onPress={() => toggleCameraFacing()}>
           <Text style={styles.text}>Cambiar cámara</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {scanned && (

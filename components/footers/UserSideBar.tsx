@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Pressable,
+  ScrollView,
 } from "react-native";
 import { useAuth0 } from "react-native-auth0";
 const defaultImage = require("../../assets/default-image.png");
@@ -96,50 +97,56 @@ export default function UserSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               {userData.email}
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/userApp")}
-          >
-            <Ionicons name="home" size={24} color="white" />
-            <Text style={styles.menuItem}>Home</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/userApp/missions")}
-          >
-            <Ionicons name="rocket" size={24} color="white" />
-            <Text style={styles.menuItem}>mis Misiones</Text>
-          </TouchableOpacity>
+          <ScrollView>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/userApp")}
+            >
+              <Ionicons name="home" size={24} color="white" />
+              <Text style={styles.menuItem}>Home</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/products")}
-          >
-            <Ionicons name="pricetags-sharp" size={24} color="white" />
-            <Text style={styles.menuItem}>mis Descuentos</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/userApp/missions")}
+            >
+              <Ionicons name="rocket" size={24} color="white" />
+              <Text style={styles.menuItem}>mis Misiones</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/products")}
-          >
-            <Ionicons name="cart" size={24} color="white" />
-            <Text style={styles.menuItem}>Carrito</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/products")}
+            >
+              <Ionicons name="pricetags-sharp" size={24} color="white" />
+              <Text style={styles.menuItem}>mis Descuentos</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => handleNavigation("/adminApp/products")}
-          >
-            <Ionicons name="trophy" size={24} color="white" />
-            <Text style={styles.menuItem}>Liga CasaMia</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/products")}
+            >
+              <Ionicons name="cart" size={24} color="white" />
+              <Text style={styles.menuItem}>Carrito</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuButton} onPress={() => logout()}>
-            <Ionicons name="log-out" size={24} color="white" />
-            <Text style={styles.menuItem}>Cerrar sesión</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/products")}
+            >
+              <Ionicons name="trophy" size={24} color="white" />
+              <Text style={styles.menuItem}>Liga CasaMia</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => logout()}
+            >
+              <Ionicons name="log-out" size={24} color="white" />
+              <Text style={styles.menuItem}>Cerrar sesión</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </Pressable>
     </Animated.View>
