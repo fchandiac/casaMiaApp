@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 import moment from "moment"; // Importamos moment.js
 
 interface DatePickerProps {
@@ -31,24 +31,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ value, onChange, label }) => {
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <DateTimePicker
-        testID="dateTimePicker"
-        value={value}
-        mode="date"
-        is24Hour={true}
-        display="default"
-        onChange={onDateChange}
-        style={{
-          backgroundColor: "transparent", // Sin fondo en el DateTimePicker
-          width: "100%",
-          height: 50,
-          borderColor: "#1d1d1d",
-          borderWidth: 1,
-          borderRadius: 10,
-          paddingHorizontal: 10,
-          paddingRight: 30,
-        }}
-      />
+  
     </View>
   );
 };

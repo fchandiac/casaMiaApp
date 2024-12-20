@@ -14,7 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.test.casamia.app"
+      "bundleIdentifier": "com.test.casamia.app",
+       "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.test.casamia.app"
@@ -28,14 +29,6 @@
       "react-native-auth0",
       {
         "domain": "dev-rk0fl88jinxofajt.us.auth0.com"
-      }
-    ],
-    [
-      "expo-camera",
-      {
-        "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-        "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
-        "recordAudioAndroid": true
       }
     ]
   ]
