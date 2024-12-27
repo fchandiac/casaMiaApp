@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 
+import QRCode from "react-native-qrcode-svg";
 
 interface MissionCardProps {
   id?: string;
@@ -43,9 +44,8 @@ export default function FullUserMissionminiCard({
 
         {!isLoading && (
           <>
-             <View style={styles.textContainer}>
-       
-           
+            <View style={{ alignItems: "center", marginHorizontal:20, marginBottom: 50, padding: 10, backgroundColor: "white", borderRadius: 10 }}>
+              <QRCode value={id} size={300} />
             </View>
 
             {/* Contenido principal */}
@@ -68,7 +68,7 @@ export default function FullUserMissionminiCard({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: '100%',
+    width: "100%",
     height: 580,
     borderRadius: 15,
     overflow: "hidden", // Mantiene los bordes redondeados
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.4)",
     padding: 10,
     height: 100,
-    width: '100%',
+    width: "100%",
   },
   title: {
     color: "white",
@@ -125,4 +125,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
