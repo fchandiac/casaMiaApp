@@ -1,5 +1,5 @@
 // useProducts.tsx
-const backendUrl = "http://192.168.0.110:3001/";
+const backendUrl = "https://casamiabackend.onrender.com/";
 import { useState } from 'react';
 import { Category } from './useCategories';
 

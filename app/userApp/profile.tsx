@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth0 } from "react-native-auth0";
 import { useGlobalContext } from "../../globalContext";

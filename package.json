@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start -c",
+    "start": "expo start",
     "android": "expo run:android",
     "prebuild:ios": "cd ios && sudo pod install --allow-root",
     "ios": "expo run:ios --device 'iPhone 16 Pro'",

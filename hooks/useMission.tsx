@@ -19,7 +19,7 @@ interface AdminMission {
 }
 
 import React, { useState } from "react";
-const backendUrl = "http://192.168.0.110:3001";
+const backendUrl = "https://casamiabackend.onrender.com/";
 
 interface CreateMission {
   code: string;
@@ -35,7 +35,7 @@ export default function useMission() {
 
   const getAdminMissions = async () => {
     const response = await fetch(
-      backendUrl + "/missions/findAllMissionsGroupByCode",
+      backendUrl + "missions/findAllMissionsGroupByCode",
       {
         method: "GET",
         headers: {
@@ -49,7 +49,7 @@ export default function useMission() {
   };
 
   const createMission = async (mission: CreateMission) => {
-    const response = await fetch(backendUrl + "/missions/createMission", {
+    const response = await fetch(backendUrl + "missions/createMission", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export default function useMission() {
 
   const getUserMissions = async (accountId: string) => {
     const response = await fetch(
-      backendUrl + "/missions/findMissionsByAccountId?accountId=" + accountId,
+      backendUrl + "missions/findMissionsByAccountId?accountId=" + accountId,
       {
         method: "GET",
         headers: {
@@ -81,7 +81,7 @@ export default function useMission() {
 
   const findOneById = async (id: string) => {
     const response = await fetch(
-      backendUrl + "/missions/findOneById?id=" + id,
+      backendUrl + "missions/findOneById?id=" + id,
       {
         method: "GET",
         headers: {
