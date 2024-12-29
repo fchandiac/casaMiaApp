@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CasaMia",
-    "slug": "casa-mia-app",
+    "slug": "casamia",
     "version": "1.0.0",
     "scheme": "casamiaapp",
     "orientation": "portrait",
@@ -15,14 +15,20 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.test.casamia.app",
-       "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.test.casamia.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "225ef54f-f3a4-4ab6-b82b-93ab1f5f529d"
+      }
+    },
+    "owner": "fchandiac"
   },
   "plugins": [
     [
