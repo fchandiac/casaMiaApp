@@ -70,6 +70,14 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
       <Pressable onPress={() => toggleSidebar()}>
         <View style={styles.sidBarContainer}>
           {/* Usar Image para mostrar la imagen desde la URL */}
+          <ScrollView
+            style={{
+              flex: 1,
+              width: "100%",
+
+
+            }}
+          >
           <View
             style={{
               alignItems: "center",
@@ -100,7 +108,7 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               {userData.email}
             </Text>
           </View>
-          <ScrollView>
+        
             <TouchableOpacity
               style={styles.menuButton}
               onPress={() => handleNavigation("/adminApp")}

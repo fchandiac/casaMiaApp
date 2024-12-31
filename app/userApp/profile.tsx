@@ -1,6 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Text, TextInput, View, StyleSheet, Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useAuth0 } from "react-native-auth0";
 import { useGlobalContext } from "../../globalContext";
 import TextField from "../../components/commons/Texfield";
@@ -52,131 +59,115 @@ export default function Profile() {
   };
 
   return (
-    <View>
-      <Text
-        style={{
-          fontSize: 20,
-          color: "black",
-          fontWeight: "bold",
-          marginBottom: 20,
-        }}
-      >
-        Mi Perfil
-      </Text>
-      {isComplete ? (
-        <></>
-      ) : (
-        <View
-          style={{
-            backgroundColor: "#ffcdd2",
-            padding: 20,
-            marginBottom: 20,
-            borderRadius: 10,
-          }}
-        >
-          <Text
-            style={{
-              color: "black",
-              fontSize: 16,
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View>
+          <Text style={styles.title}>Mi Perfil</Text>
+          {isComplete ? (
+            <></>
+          ) : (
+            <View style={styles.alert}>
+              <Text style={styles.alertText}>
+                Por favor completa tu perfil. Es necesario para poder acceder a
+                todas las funcionalidades de la aplicación.
+              </Text>
+            </View>
+          )}
+
+          <TextField
+            value={userAccountData.userName}
+            onChange={(e) =>
+              setUserAccountData({
+                ...userAccountData,
+                userName: e.nativeEvent.text,
+              })
+            }
+            label="Nombre de usuario"
+          />
+          <TextField
+            value={userAccountData.name}
+            onChange={(e) =>
+              setUserAccountData({ ...userAccountData, name: e.nativeEvent.text })
+            }
+            label="Nombre"
+          />
+          <Select
+            value={userAccountData.gender}
+            onChange={(e) => {
+              setUserAccountData({ ...userAccountData, gender: e });
+            }}
+            label="Genero"
+            items={[
+              {
+                label: "Masculino",
+                value: 0,
+              },
+              {
+                label: "Femenino",
+                value: 1,
+              },
+              {
+                label: "Otro",
+                value: 2,
+              },
+            ]}
+          />
+          <DatePicker
+            label="Fecha de nacimiento"
+            value={new Date()}
+            onChange={(date) => console.log(date)}
+          />
+
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              console.log("save: ", userAccountData);
             }}
           >
-            Por favor completa tu perfil. Es necesario para poder acceder a
-            todas las funcionalidades de la aplicación.
-          </Text>
+            <Text style={styles.buttonText}>Guardar</Text>
+          </Pressable>
         </View>
-      )}
-
-      <TextField
-        value={userAccountData.userName}
-        onChange={(e) =>
-          setUserAccountData({
-            ...userAccountData,
-            userName: e.nativeEvent.text,
-          })
-        }
-        label="Nombre de usuario"
-      />
-      <TextField
-        value={userAccountData.name}
-        onChange={(e) =>
-          setUserAccountData({ ...userAccountData, name: e.nativeEvent.text })
-        }
-        label="Nombre"
-      />
-      <Select
-        value={userAccountData.gender}
-        onChange={(e) => {
-          setUserAccountData({ ...userAccountData, gender: e });
-        }}
-        label="Genero"
-        items={[
-          {
-            label: "Masculino",
-            value: 0,
-          },
-          {
-            label: "Femenino",
-            value: 1,
-          },
-          {
-            label: "Otro",
-            value: 2,
-          },
-        ]}
-      />
-      <DatePicker
-        label="Fecha de nacimiento"
-        value={new Date()}
-        onChange={(date) => console.log(date)}
-      />
-
-      <Pressable
-        style={{
-          backgroundColor: "#4CAF50",
-          padding: 10,
-          borderRadius: 5,
-          marginTop: 20,
-        }}
-        onPress={()=> {console.log('save: ', userAccountData)}}
-      >
-        <Text style={{ color: "white", textAlign: "center" }}>Guardar</Text>
-      </Pressable>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    fontSize: 16,
-    color: "#333",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 25,
-    backgroundColor: "#f0f0f0",
-    width: "80%",
+  container: {
+    flex: 1,
   },
-  row: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+  scrollView: {
+    flexGrow: 1,
+    marginBottom: 600,
+  },
+  title: {
+    fontSize: 20,
+    color: "black",
+    fontWeight: "bold",
     marginBottom: 20,
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
-    fontWeight: "bold",
-    color: "#333",
+  alert: {
+    backgroundColor: "#ffcdd2",
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 10,
   },
-  picker: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#fff",
-  },
-  selected: {
-    marginTop: 16,
+  alertText: {
+    color: "black",
     fontSize: 16,
-    color: "#555",
+  },
+  button: {
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
   },
 });
+
