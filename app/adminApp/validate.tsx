@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Pressable,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { CameraView } from "expo-camera";
 import Title from "../../components/commons/Title";
@@ -24,7 +25,9 @@ export default function Validate() {
   //@ts-ignore
   const handleBarcodeScanned = ({ type, data }) => {
     console.log("Escaneado:", data); // Mostrar el valor escaneado
-    // setScanned(true); // Marcar que el código ha sido escaneado
+    console.log("Tipo:", type); // Mostrar el tipo de código escaneado
+    setQrData(data); // Guardar el valor escaneado
+    setScanned(true); // Marcar que el código ha sido escaneado
   };
 
   const handleValidate = () => {
@@ -33,52 +36,77 @@ export default function Validate() {
   };
 
   return (
-    <View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={{ flex: 1 }}
+        keyboardShouldPersistTaps="handled"
       >
-        <Title title="Validar misión" />
-        <Pressable onPress={() => setScanned(false)}>
-          <Ionicons name="refresh-circle" size={35} color="black" />
-        </Pressable>
-      </View>
-
-      <View
-        style={{
-          width: "100%",
-          height: "50%",
-          borderRadius: 10,
-          overflow: "hidden",
-          marginVertical: 2,
-        }}
-      >
-        <CameraView
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          barcodeScannerSettings={{
-            barcodeTypes: ["qr"], // Especificar que solo se escaneen códigos QR
-          }}
-          onBarcodeScanned={(e) => {
-            handleBarcodeScanned({type: e.type, data: e.data});
-          }} // Desactivar el escaneo una vez escaneado
-        />
-      </View>
-
-      {scanned && (
         <View>
-          <Text>Código QR: </Text> {/* Mostrar el valor del QR escaneado */}
-        </View>
-      )}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Title title="Validar misión" />
+          </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleValidate}>
-        <Text style={styles.buttonText}>Validar misión</Text>
-      </TouchableOpacity>
+          <View
+            style={{
+              width: "100%",
+              height: "50%",
+              borderRadius: 10,
+              overflow: "hidden",
+              marginVertical: 2,
+            }}
+          >
+            <CameraView
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              barcodeScannerSettings={{
+                barcodeTypes: ["qr"], // Especificar que solo se escaneen códigos QR
+              }}
+              onBarcodeScanned={(e) => {
+                handleBarcodeScanned({ type: e.type, data: e.data });
+              }} // Desactivar el escaneo una vez escaneado
+            />
+          </View>
+
+          {scanned && (
+            <View>
+              <View
+                style={{
+                  width: "100%",
+                  borderRadius: 10,
+                  padding: 10,
+                  marginVertical: 2,
+                  alignItems: "center", // Centrar el contenido horizontalmente
+                  justifyContent: "center", // Centrar el contenido verticalmente
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                  Código QR:
+                </Text>
+                <Text style={{ fontSize: 14, color: "#333" }}>{qrData}</Text>
+              </View>
+
+              <TouchableOpacity style={styles.button} onPress={handleValidate}>
+                <Text style={styles.buttonText}>Validar misión</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => setScanned(false)}
+              >
+                <Text style={styles.buttonText}>Reinciar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 }
