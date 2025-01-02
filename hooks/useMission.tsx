@@ -19,7 +19,7 @@ interface AdminMission {
 }
 
 import React, { useState } from "react";
-const backendUrl = "https://casamiabackend.onrender.com/";
+import { backendUrl } from "../casamia.config";
 
 interface CreateMission {
   code: string;

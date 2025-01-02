@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
-const backendUrl = "https://casamiabackend.onrender.com/";
+import { backendUrl } from "../casamia.config";
+
+
+
 
 interface BasicUserAccount {
     name: string;
