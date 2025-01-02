@@ -73,7 +73,7 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
           <ScrollView
             style={{
               flex: 1,
-              width: "100%",
+       
 
 
             }}
@@ -108,6 +108,14 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               {userData.email}
             </Text>
           </View>
+
+          <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/validate")}
+            >
+              <Ionicons name="cube" size={24} color="white" />
+              <Text style={styles.menuItem}>Validar</Text>
+            </TouchableOpacity>
         
             <TouchableOpacity
               style={styles.menuButton}
@@ -133,13 +141,7 @@ export default function AdminSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               <Text style={styles.menuItem}>Productos</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => handleNavigation("/adminApp/validate")}
-            >
-              <Ionicons name="cube" size={24} color="white" />
-              <Text style={styles.menuItem}>Validar</Text>
-            </TouchableOpacity>
+          
 
             <TouchableOpacity
               style={styles.menuButton}

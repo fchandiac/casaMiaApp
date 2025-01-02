@@ -3,135 +3,103 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   Pressable,
+  StyleSheet,
 } from "react-native";
-import { useGlobalContext } from "../../globalContext";
-import { CameraView } from "expo-camera"; // Importar CameraView desde expo-camera
+import { CameraView } from "expo-camera";
 import Title from "../../components/commons/Title";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function validate() {
+export default function Validate() {
   const [facing, setFacing] = useState("back");
   const [scanned, setScanned] = useState(false);
-
+  const [qrData, setQrData] = useState(""); // Guardar el valor escaneado del QR
 
   // Función para cambiar la dirección de la cámara
-  function toggleCameraFacing() {
+  const toggleCameraFacing = () => {
     setFacing((current) => (current === "back" ? "front" : "back"));
-  }
+  };
 
   // Callback para manejar el escaneo del código QR
   //@ts-ignore
   const handleBarcodeScanned = ({ type, data }) => {
-    setScanned(true);
+    console.log("Escaneado:", data); // Mostrar el valor escaneado
+    // setScanned(true); // Marcar que el código ha sido escaneado
   };
 
   const handleValidate = () => {
-    console.log("Validando misión:");
-    setScanned(false);
+    console.log("Validando misión con el QR:"); // Mostrar el valor al validar
+    setScanned(false); // Resetear el estado de escaneo
   };
 
   return (
     <View>
-      <Title title="Validar misión" />
-      <Pressable
-      style={{
-        alignItems: 'flex-end',
-        marginBottom: 10,
-      }
-      }
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        <Ionicons name="refresh-circle" size={35} color="black" />
-      </Pressable>
-      <View style={styles.cameraContainer}>
-        <CameraView
-          style={styles.camera}
-          barcodeScannerSettings={{
-            barcodeTypes: ["qr"], // Especificar que solo se escaneen códigos QR
-          }}
-          onBarcodeScanned={scanned ? undefined : handleBarcodeScanned} // Desactivar el escaneo una vez escaneado
-        />
-      </View>
-      <View style={styles.controlsContainer}>
-        <Pressable style={styles.button} onPress={() => toggleCameraFacing()}>
-          <Text style={styles.text}>Cambiar cámara</Text>
+        <Title title="Validar misión" />
+        <Pressable onPress={() => setScanned(false)}>
+          <Ionicons name="refresh-circle" size={35} color="black" />
         </Pressable>
       </View>
 
+      <View
+        style={{
+          width: "100%",
+          height: "50%",
+          borderRadius: 10,
+          overflow: "hidden",
+          marginVertical: 2,
+        }}
+      >
+        <CameraView
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          barcodeScannerSettings={{
+            barcodeTypes: ["qr"], // Especificar que solo se escaneen códigos QR
+          }}
+          onBarcodeScanned={(e) => {
+            handleBarcodeScanned({type: e.type, data: e.data});
+          }} // Desactivar el escaneo una vez escaneado
+        />
+      </View>
+
       {scanned && (
-        <View style={styles.resultContainer}>
-          <Text style={styles.message}>
-            Código QR:
-            <br />
-     
-          </Text>
-          <TouchableOpacity
-            onPress={() => setScanned(false)}
-            style={styles.button}
-          >
-            <Text style={styles.text}>Escanear de nuevo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleValidate()}
-            style={styles.button}
-          >
-            <Text style={styles.text}>Validar missión</Text>
-          </TouchableOpacity>
+        <View>
+          <Text>Código QR: </Text> {/* Mostrar el valor del QR escaneado */}
         </View>
       )}
+
+      <TouchableOpacity style={styles.button} onPress={handleValidate}>
+        <Text style={styles.buttonText}>Validar misión</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "black",
-  },
-  cameraContainer: {
-    width: "100%", // Ajustar el tamaño del contenedor de la cámara
-    height: 400, // Ajustar la altura de la cámara
-    borderRadius: 20,
-    overflow: "hidden", // Asegura que los bordes redondeados se apliquen correctamente
-  },
-  camera: {
-    borderRadius: 20,
-    width: "100%",
-    height: "100%",
-  },
-  controlsContainer: {
-    position: "absolute", // Poner los controles por encima de la cámara
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: "flex-end", // Colocar los controles en la parte inferior
-    padding: 20,
-  },
-  resultContainer: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 20,
-  },
-  message: {
-    fontSize: 18,
-    textAlign: "center",
-  },
   button: {
-    marginTop: 10,
-    flexDirection: "row", // Icono y texto en la misma línea
-    alignItems: "center", // Alinea verticalmente
-    justifyContent: "center", // Centra contenido horizontalmente
-    backgroundColor: "#1D1D1D", // Color de fondo del botón
-    paddingVertical: 8, // Espaciado vertical reducido
-    paddingHorizontal: 16, // Espaciado horizontal reducido
-    borderRadius: 30, // Bordes redondeados
+    width: "100%",
+    borderWidth: 1,
+    backgroundColor: "#1D1D1D",
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    marginBottom: 15,
   },
-  text: {
-    fontSize: 18,
+
+  buttonText: {
     color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
