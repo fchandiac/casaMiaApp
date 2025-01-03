@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Dimensions } from "react-native";
 import NewProductButton from "../../../components/products/NewProductButton";
 import ProductMiniCard from "../../../components/products/AdminProductMiniCard";
 import NewCategoryButton from "../../../components/products/NewCategoryButton";
@@ -11,6 +11,7 @@ export default function index() {
   const { products } = useGlobalContext();
   const [productsList, setProductsList] = useState<Product[]>([]);
   const router = useRouter();
+  const screenHeight = Dimensions.get("window").height;
   const { getProducts } = products;
 
   useEffect(() => {
@@ -38,17 +39,23 @@ export default function index() {
         />
       </View>
 
-      <ScrollView >
-        {productsList.map((product) => (
-          <ProductMiniCard
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            imageUrl={product.imageUrl}
-            category={product.category?.name}
-          />
-        ))}
-      </ScrollView>
+      <View style={{ height:600 }}>
+
+        <ScrollView
+        showsVerticalScrollIndicator={false}
+     
+        >
+          {productsList.map((product) => (
+            <ProductMiniCard
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              imageUrl={product.imageUrl}
+              category={product.category?.name}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 }
