@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Platform,
+  Keyboard,
+} from "react-native";
 import TextField from "../../../components/commons/Texfield";
 import MultiRowTextField from "../../../components/commons/MultiRowTextField";
 import MoneyTextField from "../../../components/commons/MoneyTextField";
@@ -31,76 +41,85 @@ export default function newMission() {
   });
 
   const saveMission = async () => {
-
     await createMission(missionData);
-  
 
     router.push("/adminApp/missions");
   };
   return (
-    <View>
-      <Title title="Nueva Misión Simple" />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <Title title="Nueva Misión Simple" />
 
-      <ScrollView>
-        <TextField
-          label="Nombre"
-          value={missionData.name}
-          onChangeText={(text) =>
-            setMissionData({ ...missionData, name: text })
-          }
-          onChange={function (e: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+          <View style={{ height: 400 }}>
+            <ScrollView
+              
+            >
+              <TextField
+                label="Nombre"
+                value={missionData.name}
+                onChangeText={(text) =>
+                  setMissionData({ ...missionData, name: text })
+                }
+                onChange={function (e: any): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
 
-        <TextField
-          label="Código"
-          value={missionData.code}
-          onChangeText={(text) =>
-            setMissionData({ ...missionData, code: text })
-          }
-          onChange={function (e: any): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+              <TextField
+                label="Código"
+                value={missionData.code}
+                onChangeText={(text) =>
+                  setMissionData({ ...missionData, code: text })
+                }
+                onChange={function (e: any): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
 
-        <MultiRowTextField
-          label="Descripción"
-          value={missionData.description}
-          onChangeText={(text) =>
-            setMissionData({ ...missionData, description: text })
-          }
-          onChange={function (e: any): void {
-            throw new Error("Function not implemented.");
-          }}
-          rows={4}
-        />
+              <MultiRowTextField
+                label="Descripción"
+                value={missionData.description}
+                onChangeText={(text) =>
+                  setMissionData({ ...missionData, description: text })
+                }
+                onChange={function (e: any): void {
+                  throw new Error("Function not implemented.");
+                }}
+                rows={4}
+              />
 
-        <MoneyTextField
-          label="Clp"
-          value={missionData.money}
-          onChange={(e) => {
-            setMissionData({ ...missionData, money: Number(e) });
-          }}
-        />
+              <MoneyTextField
+                label="Clp"
+                value={missionData.money}
+                onChange={(e) => {
+                  setMissionData({ ...missionData, money: Number(e) });
+                }}
+              />
 
-        <NumberField
-          label="Puntos"
-          value={missionData.points}
-          onChange={(e) => {
-            setMissionData({ ...missionData, points: e });
-          }}
-        />
-        <Pressable
-          style={styles.Button}
-          onPress={() => {
-            saveMission();
-          }}
-        >
-          <Text style={styles.buttonText}>Crear Misión</Text>
-        </Pressable>
-      </ScrollView>
-    </View>
+              <NumberField
+                label="Puntos"
+                value={missionData.points}
+                onChange={(e) => {
+                  setMissionData({ ...missionData, points: e });
+                }}
+              />
+              <Pressable
+                style={styles.Button}
+                onPress={() => {
+                  saveMission();
+                }}
+              >
+                <Text style={styles.buttonText}>Crear Misión</Text>
+              </Pressable>
+            </ScrollView>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 

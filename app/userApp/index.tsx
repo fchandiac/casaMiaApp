@@ -19,7 +19,8 @@ export default function Index() {
       try {
         const userAccount = await findAccountByEmail(user.email);
         const missions = await getUserMissions(userAccount.id);
-        setMissionsList(missions);
+        const filteredMissions = missions.filter((mission) => mission.status === 0);
+        setMissionsList(filteredMissions);
       } catch (error) {
         console.error("Error fetching missions:", error);
       }
@@ -30,7 +31,9 @@ export default function Index() {
   return (
     <View>
       <Title title="Misiones" />
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      >
         {missionsList.map((mission, index) => (
           <Pressable
             key={index}
