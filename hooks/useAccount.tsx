@@ -2,6 +2,12 @@ import React, {useEffect, useState} from "react";
 import { backendUrl } from "../casamia.config";
 
 
+export interface AccountType {
+    id: string;
+    email: string;
+}
+
+
 
 
 interface BasicUserAccount {
@@ -14,7 +20,7 @@ const basicUserAccountDefault: BasicUserAccount = {
     email: "mail",
 };
 
-interface UserAccount {
+export interface UserAccount {
     userName: string;
     email: string;
     points: number;

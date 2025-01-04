@@ -16,6 +16,7 @@ interface MissionCardProps {
   points?: number;
   clp?: number;
   imageUrl?: string;
+  clientSocket?: string;
 }
 
 export default function FullUserMissionminiCard({
@@ -25,8 +26,16 @@ export default function FullUserMissionminiCard({
   clp = 0,
   description = "Mission description",
   imageUrl = "https://www.somoselcafe.com.ar/img/novedades/9.webp",
+  clientSocket = "socket",
 }: MissionCardProps) {
   const [isLoading, setIsLoading] = useState(true);
+
+  const qrInfo = {
+    missionId: id,
+    clientId: clientSocket,
+  };
+
+  const qrInfoString = JSON.stringify(qrInfo);
 
   return (
     <View style={styles.cardContainer}>
@@ -44,8 +53,17 @@ export default function FullUserMissionminiCard({
 
         {!isLoading && (
           <>
-            <View style={{ alignItems: "center", marginHorizontal:20, marginBottom: 50, padding: 10, backgroundColor: "white", borderRadius: 10 }}>
-              <QRCode value={id} size={300} />
+            <View
+              style={{
+                alignItems: "center",
+                marginHorizontal: 20,
+                marginBottom: 50,
+                padding: 10,
+                backgroundColor: "white",
+                borderRadius: 10,
+              }}
+            >
+              <QRCode value={qrInfoString} size={300} />
             </View>
 
             {/* Contenido principal */}
@@ -56,7 +74,10 @@ export default function FullUserMissionminiCard({
 
             {/* Premios al final */}
             <View style={styles.rewardsContainer}>
-              <Text style={styles.rewardText}>Premio: ${clp} CLP</Text>
+              <Text style={styles.rewardText}>Premio: {clp.toLocaleString('es-CL', {
+                style: 'currency',
+                currency: 'CLP'
+              })}</Text>
               <Text style={styles.rewardText}>Puntos: {points}</Text>
             </View>
           </>

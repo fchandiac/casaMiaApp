@@ -3,12 +3,16 @@ import { View, Text } from "react-native";
 import { usePathname } from "expo-router";
 import { useGlobalContext } from "../../../globalContext";
 import FullUserMissionminiCard from "../../../components/missions/FullUserMissionminiCard";
+import { useRouter } from "expo-router";
+
 
 
 
 
 export default function MissionDetail() {
-  const { mission } = useGlobalContext();
+  const { mission, webSocket } = useGlobalContext();
+  const { socket} = webSocket;
+  const router = useRouter();
   const { findOneById } = mission;
   const path = usePathname();
   const missionId = path.split("/").filter(Boolean).pop();
@@ -20,6 +24,9 @@ export default function MissionDetail() {
     clp: 0,
     imageUrl: "",
   });
+
+
+
 
   useEffect(() => {
     const fetchMission = async () => {
@@ -50,6 +57,7 @@ export default function MissionDetail() {
             points={missionData.points}
             clp={missionData.clp}
             imageUrl={missionData.imageUrl}
+            clientSocket={socket.id}
         />
    
     </View>

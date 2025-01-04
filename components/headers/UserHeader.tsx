@@ -54,7 +54,7 @@ export default function UserHeader({
         <Text style={styles.userText}>{"@" + userName}</Text>
         <Text style={styles.infoText}>
           Pts: {points} -{" "}
-          {money.toLocaleString("es-CL0", {
+          {money.toLocaleString("es-CL", {
             style: "currency",
             currency: "CLP",
           })}

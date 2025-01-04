@@ -3,6 +3,7 @@ import useAccount from "./hooks/useAccount";
 import useCategories from "./hooks/useCategories";
 import useProducts from "./hooks/useProducts";
 import useMission from "./hooks/useMission";
+import useWebSocket from "./hooks/useWebSocket";
 
 
 
@@ -12,6 +13,7 @@ type GlobalContextType = {
   categories: ReturnType<typeof useCategories>;
   products: ReturnType<typeof useProducts>;
   mission: ReturnType<typeof useMission>;
+  webSocket: ReturnType<typeof useWebSocket>;
 
 
 };
@@ -31,9 +33,12 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const products = useProducts();
   const mission = useMission();
 
+  const userAccount = account.userAccount;
+  const webSocket = useWebSocket(userAccount);
+
 
   return (
-    <GlobalContext.Provider value={{ account, categories, products, mission }}>
+    <GlobalContext.Provider value={{ account, categories, products, mission, webSocket }}>
       {children}
     </GlobalContext.Provider>
   );

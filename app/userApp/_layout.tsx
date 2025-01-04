@@ -6,16 +6,27 @@ import UserFooter from "../../components/footers/UserFooter";
 const logo = require("../../assets/logo.png");
 import { useAuth0 } from "react-native-auth0";
 import { useGlobalContext } from "../../globalContext";
+import { useRouter } from "expo-router";
 
 export default function _Layout() {
   const { user } = useAuth0();
-  const { account } = useGlobalContext();
+  const { account} = useGlobalContext();
+  const router = useRouter()
+ 
   const { userAccount, findAccountByEmail } = account;
   useEffect(() => {
     if (user) {
       findAccountByEmail(user.email);
     }
   }, [user]);
+
+  // Escuchar el evento `updateAccount`
+  useEffect(() => {
+    
+  }, []);
+
+
+
   return (
     <View>
       <UserHeader 

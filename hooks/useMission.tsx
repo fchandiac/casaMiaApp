@@ -10,6 +10,10 @@
 //     image: string;
 // }
 
+interface ValidateMission {
+  id: string;
+}
+
 interface AdminMission {
   code: string;
   name: string;
@@ -80,19 +84,40 @@ export default function useMission() {
   };
 
   const findOneById = async (id: string) => {
-    const response = await fetch(
-      backendUrl + "missions/findOneById?id=" + id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-cache",
-      }
-    );
+    const response = await fetch(backendUrl + "missions/findOneById?id=" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-cache",
+    });
     const data = await response.json();
     return data;
   };
+
+  const validateMission = async (missionId: string) => {
+  
+      // Hacer la solicitud POST a la URL
+      const response = await fetch(backendUrl + "missions/validateMission", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Asegura que el servidor sepa que el cuerpo es JSON
+        },
+        cache: "no-cache", // Para evitar el almacenamiento en caché
+        body: JSON.stringify({ id: missionId }), // Envolvemos missionId en un objeto
+      });
+
+      // verificar si la solicitud fue exitosa
+      if (!response.ok) {
+        return false;
+      }
+      
+      const data = await response.json();
+      return data;
+  
+  
+  };
+  
 
   return {
     getAdminMissions,
@@ -100,5 +125,6 @@ export default function useMission() {
     createMission,
     getUserMissions,
     findOneById,
+    validateMission
   };
 }

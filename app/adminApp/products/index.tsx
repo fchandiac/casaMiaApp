@@ -45,7 +45,7 @@ export default function index() {
         showsVerticalScrollIndicator={false}
      
         >
-          {productsList.map((product) => (
+          {/* {productsList.map((product) => (
             <ProductMiniCard
               key={product.id}
               name={product.name}
@@ -53,7 +53,7 @@ export default function index() {
               imageUrl={product.imageUrl}
               category={product.category?.name}
             />
-          ))}
+          ))} */}
         </ScrollView>
       </View>
     </View>
