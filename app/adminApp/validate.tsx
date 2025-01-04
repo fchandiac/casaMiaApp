@@ -104,6 +104,7 @@ export default function Validate() {
       handleBarcodeScanned({ type: e.type, data: e.data });
     }}
   />
+  
 </View> 
 
           {scanned && (
