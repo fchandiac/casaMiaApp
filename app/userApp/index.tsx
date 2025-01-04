@@ -15,19 +15,29 @@ export default function Index() {
   const [missionsList, setMissionsList] = useState([]);
 
   useEffect(() => {
+
     const fetchMissions = async () => {
       try {
         const userAccount = await findAccountByEmail(user.email);
         const missions = await getUserMissions(userAccount.id);
-        const filteredMissions = missions.filter((mission) => mission.status === 0);
-        setMissionsList(filteredMissions);
+    
+        // Ordenar según la prioridad de status: Pendiente (0), En progreso (1), Completada (2)
+        missions.sort((a, b) => {
+          // Si el status es igual, no se modifica el orden
+          if (a.status === b.status) return 0;
+    
+          // Ordenar en el orden deseado (menor a mayor)
+          return a.status - b.status;
+        });
+    
+        setMissionsList(missions);
       } catch (error) {
         console.error("Error fetching missions:", error);
       }
     };
 
     fetchMissions();
-  }, [user]);
+  }, []);
   return (
     <View>
       <Title title="Misiones" />
@@ -47,6 +57,7 @@ export default function Index() {
               points={mission.points}
               clp={mission.money}
               imageUrl={mission.imageUrl}
+              status={mission.status}
             />
           </Pressable>
         ))}

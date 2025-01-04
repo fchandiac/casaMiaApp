@@ -6,7 +6,6 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-
 import QRCode from "react-native-qrcode-svg";
 
 interface MissionCardProps {
@@ -38,69 +37,73 @@ export default function FullUserMissionminiCard({
   const qrInfoString = JSON.stringify(qrInfo);
 
   return (
-    <View style={styles.cardContainer}>
-      <ImageBackground
-        source={{ uri: imageUrl }}
-        style={[styles.image, styles.imageBorder]}
-        onLoad={() => setIsLoading(false)} // Detecta cuando la imagen ha terminado de cargar
-      >
-        {isLoading && (
-          // Suspense mientras carga
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#FF6347" />
-          </View>
-        )}
-
-        {!isLoading && (
-          <>
-            <View
-              style={{
-                alignItems: "center",
-                marginHorizontal: 20,
-                marginBottom: 50,
-                padding: 10,
-                backgroundColor: "white",
-                borderRadius: 10,
-              }}
-            >
-              <QRCode value={qrInfoString} size={300} />
+    <View
+      style={{
+        marginTop: 20,
+        justifyContent: "center", // Centra verticalmente
+        alignItems: "center", // Centra horizontalmente
+        backgroundColor: "white", // Fondo blanco
+      }}
+    >
+      <View style={styles.cardContainer}>
+        <ImageBackground
+          source={{ uri: imageUrl }}
+          style={[styles.image, styles.imageBorder]}
+          onLoad={() => setIsLoading(false)} // Detecta cuando la imagen ha terminado de cargar
+        >
+          {isLoading && (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#FF6347" />
             </View>
+          )}
 
-            {/* Contenido principal */}
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{name}</Text>
-              <Text style={styles.description}>{description}</Text>
-            </View>
+          {!isLoading && (
+            <>
+              <View
+                style={{
+                  alignItems: "center",
+                  marginHorizontal: 20,
+                  marginBottom: 50,
+                  padding: 10,
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                }}
+              >
+                <QRCode value={qrInfoString} size={300} />
+              </View>
 
-            {/* Premios al final */}
-            <View style={styles.rewardsContainer}>
-              <Text style={styles.rewardText}>Premio: {clp.toLocaleString('es-CL', {
-                style: 'currency',
-                currency: 'CLP'
-              })}</Text>
-              <Text style={styles.rewardText}>Puntos: {points}</Text>
-            </View>
-          </>
-        )}
-      </ImageBackground>
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{name}</Text>
+                <Text style={styles.description}>{description}</Text>
+              </View>
+
+              <View style={styles.rewardsContainer}>
+                <Text style={styles.rewardText}>
+                  Premio:{" "}
+                  {clp.toLocaleString("es-CL", {
+                    style: "currency",
+                    currency: "CLP",
+                  })}
+                </Text>
+                <Text style={styles.rewardText}>Puntos: {points}</Text>
+              </View>
+            </>
+          )}
+        </ImageBackground>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "100%",
     height: 580,
+    width: 350, // Añadido para definir el ancho de la tarjeta
     borderRadius: 15,
     overflow: "hidden", // Mantiene los bordes redondeados
-    marginTop: 10,
-    marginRight: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     elevation: 5, // Sombras en Android
     borderColor: "#ccc",
+    backgroundColor: "white", // Color de fondo para la tarjeta
   },
   image: {
     width: "100%",
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject, // Ocupa todo el espacio disponible
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)", // Fondo semitransparente
+    backgroundColor: "rgba(0,0,0,0.6)", // Fondo semitransparente
   },
   textContainer: {
     backgroundColor: "rgba(0,0,0,0.4)",

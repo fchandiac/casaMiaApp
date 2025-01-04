@@ -11,10 +11,12 @@ import { CameraView } from "expo-camera";
 import Title from "../../components/commons/Title";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useGlobalContext } from "../../globalContext";
+import { useWebSocketContext } from "../../context/webSocketContext";
 
 export default function Validate() {
-  const { webSocket, mission } = useGlobalContext();
+  const { mission } = useGlobalContext();
   const [facing, setFacing] = useState("back");
+ const webSocket = useWebSocketContext();
   const [scanned, setScanned] = useState(false);
   const [qrData, setQrData] = useState(""); // Guardar el valor escaneado del QR
   const [clientId, setClientId] = useState(null)

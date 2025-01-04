@@ -6,7 +6,7 @@ import { useRouter } from "expo-router";
 
 const url = backendUrl;
 
-export default function useWebSocket(account: UserAccount | null) {
+export default function useWebSocket(email: string) {
     const router = useRouter()
   const [socket, setSocket] = useState<Socket | null>(null);
   const [connected, setConnected] = useState(false);
@@ -14,13 +14,13 @@ export default function useWebSocket(account: UserAccount | null) {
 
   // Conectar al WebSocket solo si el correo está disponible
   useEffect(() => {
-    if (!account?.email) {
+    if (!email) {
       console.log("No email available, skipping WebSocket connection");
       return; // No realizar la conexión si no hay correo
     }
 
     const socketInstance = io(url, {
-      query: { email: account?.email || "guest" }, // Enviar el email como parámetro de conexión
+      query: { email: email || "guest" }, // Enviar el email como parámetro de conexión
     });
 
     // Configurar eventos
@@ -48,7 +48,7 @@ export default function useWebSocket(account: UserAccount | null) {
       socketInstance.disconnect();
       setConnected(false);
     };
-  }, [account?.email]); // Solo volver a ejecutarse si el correo cambia
+  }, [email]); // Solo volver a ejecutarse si el correo cambia
 
   const validateMission = useCallback((clientId) => {
     console.log(clientId)

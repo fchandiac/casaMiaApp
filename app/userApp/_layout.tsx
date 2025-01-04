@@ -7,36 +7,31 @@ const logo = require("../../assets/logo.png");
 import { useAuth0 } from "react-native-auth0";
 import { useGlobalContext } from "../../globalContext";
 import { useRouter } from "expo-router";
+import { WebSocketProvider } from "../../context/webSocketContext";
 
 export default function _Layout() {
   const { user } = useAuth0();
-  const { account} = useGlobalContext();
-  const router = useRouter()
- 
+  const { account } = useGlobalContext();
+  const router = useRouter();
+
   const { userAccount, findAccountByEmail } = account;
   useEffect(() => {
     if (user) {
       findAccountByEmail(user.email);
     }
-  }, [user]);
-
-  // Escuchar el evento `updateAccount`
-  useEffect(() => {
-    
   }, []);
-
-
 
   return (
     <View>
-      <UserHeader 
-        userName={userAccount.userName} 
+      <UserHeader
+        userName={userAccount.userName}
         points={userAccount.points}
         money={userAccount.money}
-
       />
       <View style={styles.container}>
-        <Slot />
+        <WebSocketProvider email={user.email}>
+          <Slot />
+        </WebSocketProvider>
       </View>
       <UserFooter />
     </View>
@@ -45,7 +40,7 @@ export default function _Layout() {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
     paddingTop: 10,
   },
 });

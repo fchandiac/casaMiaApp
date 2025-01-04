@@ -4,14 +4,15 @@ import { usePathname } from "expo-router";
 import { useGlobalContext } from "../../../globalContext";
 import FullUserMissionminiCard from "../../../components/missions/FullUserMissionminiCard";
 import { useRouter } from "expo-router";
+import { useWebSocketContext } from "../../../context/webSocketContext";
 
 
 
 
 
 export default function MissionDetail() {
-  const { mission, webSocket } = useGlobalContext();
-  const { socket} = webSocket;
+  const { mission } = useGlobalContext();
+  const { socket} = useWebSocketContext();
   const router = useRouter();
   const { findOneById } = mission;
   const path = usePathname();
@@ -46,6 +47,7 @@ export default function MissionDetail() {
     };
 
     fetchMission();
+
   }, []);
 
   return (
@@ -57,7 +59,7 @@ export default function MissionDetail() {
             points={missionData.points}
             clp={missionData.money}
             imageUrl={missionData.imageUrl}
-            clientSocket={socket.id}
+             clientSocket={socket.id}
         />
     </View>
   );

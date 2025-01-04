@@ -14,6 +14,7 @@ interface MissionCardProps {
   points?: number;
   clp?: number;
   imageUrl?: string;
+  status?: number;
 }
 
 export default function UserMissionminiCard({
@@ -23,6 +24,7 @@ export default function UserMissionminiCard({
   clp = 0,
   description = "Mission description",
   imageUrl = "https://www.somoselcafe.com.ar/img/novedades/9.webp",
+  status = 0,
 }: MissionCardProps) {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,6 +42,9 @@ export default function UserMissionminiCard({
           </View>
         )}
 
+        {/* Capa oscura si el status es distinto de 0 */}
+        {status !== 0 && <View style={styles.overlay} />}
+
         {!isLoading && (
           <>
             {/* Contenido principal */}
@@ -50,10 +55,13 @@ export default function UserMissionminiCard({
 
             {/* Premios al final */}
             <View style={styles.rewardsContainer}>
-              <Text style={styles.rewardText}>Premio: {clp.toLocaleString('es-CL', {
-                style: "currency",
-                currency: "CLP",
-              })}</Text>
+              <Text style={styles.rewardText}>
+                Premio:{" "}
+                {clp.toLocaleString("es-CL", {
+                  style: "currency",
+                  currency: "CLP",
+                })}
+              </Text>
               <Text style={styles.rewardText}>Puntos: {points}</Text>
             </View>
           </>
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: "hidden", // Mantiene los bordes redondeados
     marginTop: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -93,11 +101,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)", // Fondo semitransparente
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject, // Cubre toda la tarjeta
+    backgroundColor: "rgba(0, 0, 0, 0.4)", // Fondo oscuro translúcido
+    zIndex: 1, // Asegura que esté encima de otros elementos
+  },
   textContainer: {
     backgroundColor: "rgba(0,0,0,0.4)",
     padding: 10,
-    flex:1,
-    width: '50%',
+    flex: 1,
+    width: "50%",
   },
   title: {
     color: "white",
@@ -122,4 +135,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
