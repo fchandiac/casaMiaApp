@@ -21,7 +21,7 @@ export default function MissionDetail() {
     name: "",
     description: "",
     points: 0,
-    clp: 0,
+    money: 0,
     imageUrl: "",
   });
 
@@ -37,7 +37,7 @@ export default function MissionDetail() {
           name: mission.name,
           description: mission.description,
           points: mission.points,
-          clp: mission.clp,
+          money: mission.money,
           imageUrl: mission.imageUrl,
         });
       } catch (error) {
@@ -55,11 +55,10 @@ export default function MissionDetail() {
             name={missionData.name}
             description={missionData.description}
             points={missionData.points}
-            clp={missionData.clp}
+            clp={missionData.money}
             imageUrl={missionData.imageUrl}
             clientSocket={socket.id}
         />
-   
     </View>
   );
 }

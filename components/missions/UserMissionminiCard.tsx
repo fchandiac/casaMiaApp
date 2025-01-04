@@ -50,7 +50,10 @@ export default function UserMissionminiCard({
 
             {/* Premios al final */}
             <View style={styles.rewardsContainer}>
-              <Text style={styles.rewardText}>Premio: ${clp} CLP</Text>
+              <Text style={styles.rewardText}>Premio: {clp.toLocaleString('es-CL', {
+                style: "currency",
+                currency: "CLP",
+              })}</Text>
               <Text style={styles.rewardText}>Puntos: {points}</Text>
             </View>
           </>

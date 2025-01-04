@@ -42,7 +42,7 @@ export default function Index() {
               name={mission.name}
               description={mission.description}
               points={mission.points}
-              clp={mission.clp}
+              clp={mission.money}
               imageUrl={mission.imageUrl}
             />
           </Pressable>
