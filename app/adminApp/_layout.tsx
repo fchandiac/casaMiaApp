@@ -24,7 +24,7 @@ export default function _Layout() {
     <View>
       <AdminHeader userName={userAccount.name} email={userAccount.email} />
       <View style={styles.container}>
-        <WebSocketProvider email={user.email}>
+        <WebSocketProvider email={user?.email || ""}>
           <Slot />
         </WebSocketProvider>
       </View>

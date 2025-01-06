@@ -109,6 +109,14 @@ export default function UserSideBar({ isOpen, toggleSidebar }: SidebarProps) {
 
             <TouchableOpacity
               style={styles.menuButton}
+              onPress={() => handleNavigation("/adminApp/products")}
+            >
+              <Ionicons name="cart" size={24} color="white" />
+              <Text style={styles.menuItem}>Carrito</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.menuButton}
               onPress={() => handleNavigation("/userApp/missions")}
             >
               <Ionicons name="rocket" size={24} color="white" />
@@ -131,13 +139,7 @@ export default function UserSideBar({ isOpen, toggleSidebar }: SidebarProps) {
               <Text style={styles.menuItem}>Transacciones</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.menuButton}
-              onPress={() => handleNavigation("/adminApp/products")}
-            >
-              <Ionicons name="cart" size={24} color="white" />
-              <Text style={styles.menuItem}>Carrito</Text>
-            </TouchableOpacity>
+          
 
             <TouchableOpacity
               style={styles.menuButton}

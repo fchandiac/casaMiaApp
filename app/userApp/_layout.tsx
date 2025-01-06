@@ -15,6 +15,7 @@ export default function _Layout() {
   const router = useRouter();
 
   const { userAccount, findAccountByEmail } = account;
+
   useEffect(() => {
     if (user) {
       findAccountByEmail(user.email);
@@ -29,7 +30,7 @@ export default function _Layout() {
         money={userAccount.money}
       />
       <View style={styles.container}>
-        <WebSocketProvider email={user.email}>
+        <WebSocketProvider email={user?.email || ""}>
           <Slot />
         </WebSocketProvider>
       </View>
