@@ -1,20 +1,19 @@
 import { backendUrl } from "../casamia.config";
 import { useState, useEffect, useCallback } from "react";
 import io, { Socket } from "socket.io-client";
-import { UserAccount } from "./useAccount";
 import { useRouter } from "expo-router";
 
 const url = backendUrl;
 
-export default function useWebSocket(email: string) {
-    const router = useRouter()
+export default function useWebSocket(email: string | null) {
+  const router = useRouter();
   const [socket, setSocket] = useState<Socket | null>(null);
   const [connected, setConnected] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
 
   // Conectar al WebSocket solo si el correo está disponible
   useEffect(() => {
-    if (!email) {
+    if (email === null) {
       console.log("No email available, skipping WebSocket connection");
       return; // No realizar la conexión si no hay correo
     }
@@ -37,7 +36,7 @@ export default function useWebSocket(email: string) {
     // Escuchar el evento `updateAccount` para cambiar el estado
     socketInstance.on("updateAccount", (data: any) => {
       console.log("Cuenta actualizada:", data);
-      router.push('/userApp')
+      router.push("/userApp");
     });
 
     // Guardar la instancia del socket
@@ -50,18 +49,19 @@ export default function useWebSocket(email: string) {
     };
   }, [email]); // Solo volver a ejecutarse si el correo cambia
 
-  const validateMission = useCallback((clientId) => {
-    console.log(clientId)
-    if (socket && connected) {
-      socket.emit("Validate mission", {
-        clientId: clientId, // Usamos el clientId proporcionado dinámicamente
-      });
-    } else {
-      console.log("No se pudo emitir la misión, socket desconectado");
-    }
-  }, [socket, connected]); 
-
-
+  const validateMission = useCallback(
+    (clientId) => {
+      console.log(clientId);
+      if (socket && connected) {
+        socket.emit("Validate mission", {
+          clientId: clientId, // Usamos el clientId proporcionado dinámicamente
+        });
+      } else {
+        console.log("No se pudo emitir la misión, socket desconectado");
+      }
+    },
+    [socket, connected]
+  );
 
   return {
     connected,

@@ -54,7 +54,7 @@ export default function newMission() {
         <View>
           <Title title="Nueva Misión Simple" />
 
-          <View style={{ height: 400 }}>
+          <View style={{ height: 590 }}>
             <ScrollView
               
             >

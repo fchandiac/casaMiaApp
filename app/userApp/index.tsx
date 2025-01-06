@@ -20,6 +20,11 @@ export default function Index() {
       try {
         const userAccount = await findAccountByEmail(user.email);
         const missions = await getUserMissions(userAccount.id);
+
+        if (missions.length === 0) {
+          console.log("No hay misiones");
+          return;
+        }
     
         // Ordenar según la prioridad de status: Pendiente (0), En progreso (1), Completada (2)
         missions.sort((a, b) => {

@@ -117,10 +117,18 @@ export default function UserSideBar({ isOpen, toggleSidebar }: SidebarProps) {
 
             <TouchableOpacity
               style={styles.menuButton}
-              onPress={() => handleNavigation("/adminApp/products")}
+              onPress={() => handleNavigation("/userApp/missions")}
+            >
+              <Ionicons name="rocket" size={24} color="white" />
+              <Text style={styles.menuItem}>mis Misiones</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.menuButton}
+              onPress={() => handleNavigation("/userApp/transactions")}
             >
               <Ionicons name="pricetags-sharp" size={24} color="white" />
-              <Text style={styles.menuItem}>mis Descuentos</Text>
+              <Text style={styles.menuItem}>Transacciones</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

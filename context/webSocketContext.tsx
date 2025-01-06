@@ -10,7 +10,7 @@ const WebSocketContext = createContext<WebSocketContextType | undefined>(undefin
 // Tipo de las props del Provider
 type WebSocketProviderProps = {
   children: ReactNode;
-  email: string; // Parámetro requerido para inicializar el WebSocket
+  email: string | null;
 };
 
 // Crear el Provider
