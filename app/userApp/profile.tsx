@@ -115,11 +115,7 @@ export default function Profile() {
               },
             ]}
           />
-          <DatePicker
-            label="Fecha de nacimiento"
-            value={new Date()}
-            onChange={(date) => console.log(date)}
-          />
+   
 
           <Pressable
             style={styles.button}

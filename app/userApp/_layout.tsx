@@ -9,6 +9,9 @@ import { useGlobalContext } from "../../globalContext";
 import { useRouter } from "expo-router";
 import { WebSocketProvider } from "../../context/webSocketContext";
 
+
+
+
 export default function _Layout() {
   const { user } = useAuth0();
   const { account } = useGlobalContext();
@@ -19,6 +22,7 @@ export default function _Layout() {
   useEffect(() => {
     if (user) {
       findAccountByEmail(user.email);
+      console.log("user", account.userAccount.accountId);
     }
   }, []);
 
@@ -28,6 +32,7 @@ export default function _Layout() {
         userName={userAccount.userName}
         points={userAccount.points}
         money={userAccount.money}
+        accountId={userAccount.accountId}
       />
       <View style={styles.container}>
         <WebSocketProvider email={user?.email || ""}>

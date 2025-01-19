@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Dimensions, StyleSheet, ScrollView } from "react-native";
+import { useGlobalContext } from "../../globalContext";
+import useNotifications from "../../hooks/useNotifications";
+import NotificationCard from "../../components/notifications/NotificationCard";
 
 export default function Notifications() {
+  const { account } = useGlobalContext();
+  const { getNotifications } = useNotifications();
   const [screenSize, setScreenSize] = useState({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   });
+
+  const [notificationsList, setNotificationsList] = useState([]);
 
   // Escucha los cambios en el tamaño de la pantalla
   useEffect(() => {
@@ -21,19 +28,39 @@ export default function Notifications() {
     return () => subscription?.remove();
   }, []);
 
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const notifications = await getNotifications(account.userAccount.accountId);
+
+        if (notifications.length === 0) {
+          console.log("No hay notificaciones");
+          return;
+        }
+
+        setNotificationsList(notifications);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.innerContainer}>
-        {/* Repetir la información de las notificaciones */}
-        {Array(20) // Ajusta la cantidad de elementos aquí si es necesario
-          .fill(null)
-          .map((_, index) => (
-            <View key={index} style={styles.notificationContainer}>
-              <Text style={styles.title}>Notification {index + 1}</Text>
-              <Text style={styles.text}>Ancho: {screenSize.width.toFixed(0)} px</Text>
-              <Text style={styles.text}>Alto: {screenSize.height.toFixed(0)} px</Text>
-            </View>
-          ))}
+        <Text style={styles.title}>Notificaciones</Text>
+        {notificationsList.map((notification, index) => (
+          <NotificationCard
+            key={index}
+            id={notification.id}
+            message={notification.message}
+            status={notification.status}
+            type={notification.type}
+            createdAt={notification.createdAt}
+          />
+        ))}
       </View>
     </ScrollView>
   );
@@ -44,15 +71,16 @@ const styles = StyleSheet.create({
     flexGrow: 1, // Asegura que el contenido ocupe el espacio disponible
     paddingBottom: 20, // Agrega espacio al final del contenido
     paddingHorizontal: 20, // Agrega espacio horizontal
-    backgroundColor: "#f0f0f0",
   },
   innerContainer: {
     alignItems: "center", // Centra horizontalmente el contenido
+   
   },
   notificationContainer: {
     marginBottom: 20, // Espacio entre cada notificación
     width: "100%",
     alignItems: "center",
+
   },
   title: {
     fontSize: 24,

@@ -67,6 +67,8 @@ export default function Index() {
           </Pressable>
         ))}
       </ScrollView>
+      <Title title="" /> 
+      <Title title="Liga CasaMia" />
     </View>
   );
 }

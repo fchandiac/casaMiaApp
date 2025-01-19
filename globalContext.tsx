@@ -5,8 +5,6 @@ import useProducts from "./hooks/useProducts";
 import useMission from "./hooks/useMission";
 
 
-
-
 // Tipo del contexto
 type GlobalContextType = {
   account: ReturnType<typeof useAccount>;
