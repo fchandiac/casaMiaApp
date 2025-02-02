@@ -12,7 +12,9 @@ import { useAuth0 } from "react-native-auth0";
 import { useGlobalContext } from "../../globalContext";
 import TextField from "../../components/commons/Texfield";
 import Select from "../../components/commons/Select";
-import DatePicker from "../../components/commons/DatePicker";
+import { useRouter } from "expo-router";
+
+
 
 interface Profile {
   userName: string;
@@ -23,7 +25,7 @@ interface Profile {
 export default function Profile() {
   const { user } = useAuth0();
   const { account } = useGlobalContext();
-  const { userAccount, findAccountByEmail, isProfileComplete, updateUserName } =
+  const { userAccount, findAccountByEmail, isProfileComplete,updateProfile } =
     account;
   const [isComplete, setIsComplete] = useState(false);
   const [userAccountData, setUserAccountData] = useState({
@@ -31,6 +33,9 @@ export default function Profile() {
     name: "",
     gender: null, // Aquí se agrega el estado para el género
   });
+  const router = useRouter();
+
+
 
   useEffect(() => {
     const checkProfile = async () => {
@@ -48,15 +53,19 @@ export default function Profile() {
     }
   }, [user]);
 
-  const saveUserName = async () => {
-    await updateUserName(user.email, userAccountData.userName);
-    console.log("Nombre de usuario guardado");
-  };
 
-  const saveGender = async () => {
-    console.log("Género guardado:", userAccountData.gender);
-    // Aquí puedes implementar la lógica para guardar el género en tu backend
-  };
+  const saveProfile = async () => {
+    try {
+      await updateProfile(userAccount.accountId, userAccountData.userName, userAccountData.name, userAccountData.gender);
+      router.push("/userApp");
+
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  }
+  
+
+
 
   return (
     <KeyboardAvoidingView
@@ -120,7 +129,7 @@ export default function Profile() {
           <Pressable
             style={styles.button}
             onPress={() => {
-              console.log("save: ", userAccountData);
+              saveProfile();
             }}
           >
             <Text style={styles.buttonText}>Guardar</Text>
@@ -134,6 +143,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 10,
   },
   scrollView: {
     flexGrow: 1,

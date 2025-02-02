@@ -43,9 +43,6 @@ export interface UserAccount {
 // }
 
 export default function useAccount() {
-
-
-
   const [userAccount, setUserAccount] = useState<UserAccount>({
     userName: "",
     name: "",
@@ -73,7 +70,7 @@ export default function useAccount() {
         money: data.money,
         gender: data.gender,
         accountId: data.id,
-      })
+      });
 
       return data;
     } catch (e) {
@@ -160,6 +157,30 @@ export default function useAccount() {
     }
   }
 
+  //http://localhost:3001/account/updateProfile
+  // id, userName, name, gender
+
+  async function updateProfile(
+    id: string,
+    userName: string,
+    name: string,
+    gender: number
+  ) {
+    try {
+      const response = await fetch(`${backendUrl}account/updateProfile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, userName, name, gender }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return {
     userAccount,
     findAccountByEmail,
@@ -168,5 +189,6 @@ export default function useAccount() {
     updateUserName,
     findAllPointsTransactionsByAccountId,
     findAllMoneyTransactionsByAccountId,
+    updateProfile,
   };
 }

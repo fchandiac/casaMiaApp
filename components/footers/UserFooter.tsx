@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable } from 'react-native'; // Importar Pressable
+import { useRouter } from 'expo-router';
 
 import UserSideBar from './UserSideBar';
 
 export default function UserFooter() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const router = useRouter();
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
@@ -19,7 +21,7 @@ export default function UserFooter() {
             <Pressable onPress={toggleSidebar}>
                 <Ionicons name='menu' size={34} color='white' style={styles.icon} />
             </Pressable>
-            <Pressable onPress={() => console.log('Home pressed')}>
+            <Pressable onPress={() => { router.push('/userApp') }}>
                 <Ionicons name="home" size={24} color="white" style={styles.icon} />
             </Pressable>
         </View>
